@@ -5,11 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ObservableExampleComponent } from './examples/observable-example/observable-example.component';
 import { SubjectExampleComponent } from './examples/subject-example/subject-example.component';
-import {StoreModule} from "@ngrx/store";
+import {ActionReducer, ActionReducerMap, StoreModule} from "@ngrx/store";
 import { ReduxCounterComponent } from './examples/redux-counter/redux-counter.component';
 import { ReduxProductComponent } from './examples/redux-product/redux-product.component';
 import {FormsModule} from "@angular/forms";
 import {ProductActionTypes, ProductActionUnion} from "./store/product.actions";
+import {AppState} from "./store/app-state";
 
 const counterReducer = (state = 0, action) => {
   switch (action.type) {
@@ -40,6 +41,13 @@ const productReducer = (state = [], action: ProductActionUnion) => {
   }
 };
 
+
+// NOTE ActionReducerMap is just for type safety - only attributes from AppState are allowed in map
+export const reducers: ActionReducerMap<AppState> = {
+  products: productReducer,
+  counter: counterReducer
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,10 +61,7 @@ const productReducer = (state = [], action: ProductActionUnion) => {
     AppRoutingModule,
 
     // NOTE: every time dispatch is called, all reducers are called - thus action name must be unique
-    StoreModule.forRoot({
-      counter: counterReducer,
-      products: productReducer
-    }),
+    StoreModule.forRoot(reducers),
     FormsModule
   ],
   providers: [],
