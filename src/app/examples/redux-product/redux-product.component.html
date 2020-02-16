@@ -1,0 +1,13 @@
+<div>
+  <input type="text" [(ngModel)]="newProduct"/>
+  <button (click)="save()">Save</button>
+  <div *ngFor="let product of products$| async">
+    {{product.id}} {{product.name}}
+    <button (click)="select(product)">Select</button>
+    <button (click)="delete(product)">Delete</button>
+  </div>
+  <div *ngIf="selectedProduct">
+    <input type="text" [(ngModel)]="selectedProduct.name"/>
+    <button (click)="update()">Update</button>
+  </div>
+</div>
