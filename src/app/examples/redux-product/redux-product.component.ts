@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {Store} from "@ngrx/store";
-import {AppState} from "../../app-state";
-import {Product} from "../../product";
+import {AppState} from "../../store/app-state";
+import {Product} from "../../store/product";
+import {Observable} from "rxjs";
+import {CreateProductAction, DeleteProductAction} from "../../store/product.actions";
+
+// action creator (alternativa k product.actions.ts)
+const createProduct = (id, title) => ({type: 'ADD', payload: {id, title}});
+// selector
+const productSelector = (state) => state.products;
+
 
 @Component({
   selector: 'app-redux-product',
@@ -11,10 +19,12 @@ import {Product} from "../../product";
 export class ReduxProductComponent implements OnInit {
 
   id: number = 0;
-  products$ = this.store.select('products');
+  products$: Observable<Product[]>;
   public newProduct: string;
   public selectedProduct: Product;
-  constructor(private  store: Store<AppState>) { }
+  constructor(private  store: Store<AppState>) {
+    this.products$ = store.select(productSelector);
+  }
 
   ngOnInit(): void {
   }
@@ -24,30 +34,18 @@ export class ReduxProductComponent implements OnInit {
   }
 
   public save() {
-    this.store.dispatch({
-      type: 'ADD',
-      payload: {
-        id: this.id++,
-        name: this.newProduct
-      }
-    })
+    this.store.dispatch(new CreateProductAction({id: this.id++, name: this.newProduct}))
   }
 
   public delete(product) {
-    this.store.dispatch({
-      type: 'REMOVE',
-      payload: {
-        id: product.id
-      }
-    })
+    this.store.dispatch(new DeleteProductAction(product.id))
   }
 
-  public update() {
-    this.store.dispatch({
-      type: 'UPDATE',
-      payload: this.selectedProduct
-    });
-    this.selectedProduct = null;
-  }
-
+  // public update() {
+  //   this.store.dispatch({
+  //     type: 'UPDATE',
+  //     payload: this.selectedProduct
+  //   });
+  //   this.selectedProduct = null;
+  // }
 }
