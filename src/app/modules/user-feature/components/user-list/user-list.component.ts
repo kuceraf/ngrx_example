@@ -4,7 +4,7 @@ import {UserState} from "../../store/user-state";
 import {Observable} from "rxjs";
 import {getList} from "../../store/user.selector";
 import {User} from "../../user";
-import {CreateUserAction, DeleteUserAction, FetchUserAction} from "../../store/user.actions";
+import {CreateUserAction, DeleteUserAction, FetchUserAction, SaveUserAction} from "../../store/user.actions";
 
 @Component({
   selector: 'app-user-list',
@@ -22,6 +22,10 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new FetchUserAction());
+  }
+
+  public save() {
+    this.store.dispatch(new SaveUserAction({id: this.id++, name: this.newUser}))
   }
 
   // public create() {

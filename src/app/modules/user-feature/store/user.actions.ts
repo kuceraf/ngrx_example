@@ -4,6 +4,7 @@ import {User} from "../user";
 export enum UserActionTypes {
   Fetch = '[User] Fetch',
   Load = '[User] Load',
+  Save = '[User] Save',
   Create = '[User] Create',
   Get = '[User] Get',
   Delete = '[Delete] Delete'
@@ -17,6 +18,12 @@ export class FetchUserAction implements Action {
 export class LoadUserAction implements Action {
   type: UserActionTypes = UserActionTypes.Load;
   constructor(public payload: User[]) {
+  }
+}
+
+export class SaveUserAction implements Action {
+  type: UserActionTypes = UserActionTypes.Save;
+  constructor(public payload: User) {
   }
 }
 
