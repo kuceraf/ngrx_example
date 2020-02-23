@@ -19,4 +19,10 @@ export class ReduxCounterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public increment() {
+    this.store.dispatch({
+        type: 'INCREMENT',
+      }
+    )
+  }
 }

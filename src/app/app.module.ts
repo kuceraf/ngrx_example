@@ -46,10 +46,9 @@ const counterReducer = (state = 0, action) => {
 
 
 // NOTE ActionReducerMap is just for type safety - only attributes from AppState are allowed in map
-// export const reducers: ActionReducerMap<AppState> = {
-//   products: productReducer,
-//   counter: counterReducer
-// };
+export const reducers: ActionReducerMap<AppState> = {
+  counter: counterReducer
+};
 
 @NgModule({
   declarations: [
@@ -64,7 +63,7 @@ const counterReducer = (state = 0, action) => {
     AppRoutingModule,
 
     // NOTE: every time dispatch is called, all reducers are called - thus action name must be unique
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers),
     FormsModule,
     UserFeatureModule,
     StoreDevtoolsModule.instrument({ maxAge: 25})
