@@ -12,6 +12,8 @@ import {FormsModule} from "@angular/forms";
 import {ProductActionTypes, ProductActionUnion} from "./store/product.actions";
 import {AppState} from "./store/app-state";
 import {UserFeatureModule} from "./modules/user-feature/user-feature.module";
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 const counterReducer = (state = 0, action) => {
   switch (action.type) {
@@ -64,7 +66,8 @@ const counterReducer = (state = 0, action) => {
     // NOTE: every time dispatch is called, all reducers are called - thus action name must be unique
     StoreModule.forRoot({}),
     FormsModule,
-    UserFeatureModule
+    UserFeatureModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25})
   ],
   providers: [],
   bootstrap: [AppComponent]
