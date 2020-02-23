@@ -1,12 +1,23 @@
 import {Action} from "@ngrx/store";
-import {Product} from "../../../store/product";
-import {ProductActionTypes} from "../../../store/product.actions";
 import {User} from "../user";
 
 export enum UserActionTypes {
+  Fetch = '[User] Fetch',
+  Load = '[User] Load',
   Create = '[User] Create',
   Get = '[User] Get',
   Delete = '[Delete] Delete'
+}
+
+
+export class FetchUserAction implements Action {
+  type: UserActionTypes = UserActionTypes.Fetch;
+}
+
+export class LoadUserAction implements Action {
+  type: UserActionTypes = UserActionTypes.Load;
+  constructor(public payload: User[]) {
+  }
 }
 
 export class CreateUserAction implements Action {

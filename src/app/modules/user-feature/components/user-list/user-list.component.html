@@ -1,8 +1,8 @@
 <div>
   <input type="text" [(ngModel)]="newUser"/>
-  <button (click)="create()">Save</button>
+<!--  <button (click)="create()">Save</button>-->
   <div *ngFor="let user of users$| async">
     {{user.id}} {{user.name}}
-    <button (click)="delete(user)">Delete</button>
+<!--    <button (click)="delete(user)">Delete</button>-->
   </div>
 </div>

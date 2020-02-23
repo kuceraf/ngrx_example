@@ -1,5 +1,5 @@
-import {User} from "../user";
+import {UserFeature} from "../user-feature";
 
 export interface UserState {
-  users: Array<User>;
+  userFeature: UserFeature
 }

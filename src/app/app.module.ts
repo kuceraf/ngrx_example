@@ -14,6 +14,9 @@ import {AppState} from "./store/app-state";
 import {UserFeatureModule} from "./modules/user-feature/user-feature.module";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import {EffectsModule} from "@ngrx/effects";
+import {EffectService} from "./store/effect.service";
+import {HttpClientModule} from "@angular/common/http";
 
 const counterReducer = (state = 0, action) => {
   switch (action.type) {
@@ -61,9 +64,11 @@ export const reducers: ActionReducerMap<AppState> = {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
 
     // NOTE: every time dispatch is called, all reducers are called - thus action name must be unique
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([EffectService]),
     FormsModule,
     UserFeatureModule,
     StoreDevtoolsModule.instrument({ maxAge: 25})

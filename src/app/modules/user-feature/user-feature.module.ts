@@ -3,28 +3,19 @@ import { CommonModule } from '@angular/common';
 import { UserListComponent } from './components/user-list/user-list.component';
 import {FormsModule} from "@angular/forms";
 import {ActionReducerMap, StoreModule} from "@ngrx/store";
-import {AppState} from "../../store/app-state";
-import {ProductActionTypes, ProductActionUnion} from "../../store/product.actions";
-import {UserActionTypes} from "./store/user.actions";
 import {UserState} from "./store/user-state";
+import {EffectsModule} from "@ngrx/effects";
+import {UserEffects} from "./store/user.effects";
+import {userReducer} from "./store/user.reducer";
+import {UsersService} from "./services/users.service";
 
-
-const userReducer = (state = [], action) => {
-  switch (action.type) {
-    case UserActionTypes.Create:
-      return [ ...state, {...action.payload}];
-    case UserActionTypes.Delete:
-      return state.filter(p => p.id !== action.payload);
-    default:
-      return state;
-  }
-};
 
 export const userReducers: ActionReducerMap<UserState> = {
-  users: userReducer,
+  userFeature: userReducer
 };
 
 @NgModule({
+  providers: [UsersService],
   declarations: [UserListComponent],
   exports: [
     UserListComponent
@@ -32,7 +23,8 @@ export const userReducers: ActionReducerMap<UserState> = {
   imports: [
     CommonModule,
     FormsModule,
-    StoreModule.forFeature('users', userReducers)
+    StoreModule.forFeature('userFeature', userReducers),
+    EffectsModule.forFeature([UserEffects])
   ]
 })
 export class UserFeatureModule { }
