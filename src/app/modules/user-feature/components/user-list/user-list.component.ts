@@ -22,6 +22,8 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new FetchUserAction());
+
+    // this.store.select()
   }
 
   public save() {

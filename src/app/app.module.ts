@@ -17,6 +17,9 @@ import { environment } from '../environments/environment';
 import {EffectsModule} from "@ngrx/effects";
 import {EffectService} from "./store/effect.service";
 import {HttpClientModule} from "@angular/common/http";
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import {RouterModule} from "@angular/router";
+
 
 const counterReducer = (state = 0, action) => {
   switch (action.type) {
@@ -50,6 +53,7 @@ const counterReducer = (state = 0, action) => {
 
 // NOTE ActionReducerMap is just for type safety - only attributes from AppState are allowed in map
 export const reducers: ActionReducerMap<AppState> = {
+  router: routerReducer,
   counter: counterReducer
 };
 
@@ -70,6 +74,7 @@ export const reducers: ActionReducerMap<AppState> = {
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([EffectService]),
     FormsModule,
+    RouterModule,
     UserFeatureModule,
     StoreDevtoolsModule.instrument({ maxAge: 25})
   ],

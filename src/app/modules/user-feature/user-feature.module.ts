@@ -8,6 +8,7 @@ import {EffectsModule} from "@ngrx/effects";
 import {UserEffects} from "./store/user.effects";
 import {userReducer} from "./store/user.reducer";
 import {UsersService} from "./services/users.service";
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 
 
 export const userReducers: ActionReducerMap<UserState> = {
@@ -16,7 +17,7 @@ export const userReducers: ActionReducerMap<UserState> = {
 
 @NgModule({
   providers: [UsersService],
-  declarations: [UserListComponent],
+  declarations: [UserListComponent, UserDetailComponent],
   exports: [
     UserListComponent
   ],
